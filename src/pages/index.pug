@@ -1,0 +1,19 @@
+.calendar.calendar-lg
+    .calendar-nav.navbar
+        button.btn.btn-action.btn-link.btn-lg
+            i.icon.icon-arrow-left(@click="gantiBulan('-1')")
+        .navbar-primary 
+            | {{ bulan }}
+            button.btn.btn-action.btn-link.btn-lg(v-if='notNow' @click='bulanIni')
+                i.icon.icon-time
+        button.btn.btn-action.btn-link.btn-lg(@click='gantiBulan("1")')
+            i.icon.icon-arrow-right
+    .calendar-container
+        .calendar-header
+            .calendar-date(v-for='ha of hari') {{ha}}
+        .calendar-body
+            .calendar-date(
+                v-for='tg of tgl'
+                :class="{'prev-month': tg.isPrev, 'next-month': tg.isAfter}" 
+            )
+                button.date-item(:class="{'date-today': tg.isNow}")  {{tg.date}}

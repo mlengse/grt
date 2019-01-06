@@ -1,23 +1,4 @@
-<template lang="pug">
-.calendar.calendar-lg
-    .calendar-nav.navbar
-        button.btn.btn-action.btn-link.btn-lg
-            i.icon.icon-arrow-left(@click="gantiBulan('-1')")
-        .navbar-primary 
-            | {{ bulan }}
-            button.btn.btn-action.btn-link.btn-lg(v-if='notNow' @click='bulanIni')
-                i.icon.icon-time
-        button.btn.btn-action.btn-link.btn-lg(@click='gantiBulan("1")')
-            i.icon.icon-arrow-right
-    .calendar-container
-        .calendar-header
-            .calendar-date(v-for='ha of hari') {{ha}}
-        .calendar-body
-            .calendar-date(
-                v-for='tg of tgl'
-                :class="{'prev-month': tg.isPrev, 'next-month': tg.isAfter}" 
-            )
-                button.date-item(:class="{'date-today': tg.isNow}")  {{tg.date}}
+<template lang="pug" src='./index.pug'>
 </template>
 
 <script>
@@ -37,6 +18,7 @@ export default {
         bulan: {
             immediate: true,
             handler(val) {
+
                 val !== moment().format('MMMM YYYY') ? this.notNow = true : this.notNow = false;
                 this.tgl = []
                 let start = moment(val, 'MMMM YYYY').startOf('month').startOf('week').add(-1, 'd')
@@ -46,7 +28,7 @@ export default {
                     this.tgl[this.tgl.length] = {
                         date: dateNow,
                         isPrev: start.isBefore(moment(val, 'MMMM YYYY'), 'month'),
-                        isNow: dateNow == moment().date() ? true : false,
+                        isNow: moment(`${dateNow} ${val}`, 'DD MMMM YYYY') == moment() ? true : false,
                         isAfter: start.isAfter(moment(val, 'MMMM YYYY'), 'month'),
                     }
                     start = start.add(1, 'd')
