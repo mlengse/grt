@@ -1,13 +1,15 @@
 .calendar.calendar-lg
     .calendar-nav.navbar
-        button.btn.btn-action.btn-link.btn-lg
-            i.icon.icon-arrow-left(@click="gantiBulan('-1')")
+        div
+            button.btn.btn-action.btn-link.btn-lg
+                i.icon.icon-arrow-left(@click="gantiBulan('-1')")
+            button.btn(v-if='before' @click='bulanIni') sekarang: {{ sekarang }}
         .navbar-primary 
             | {{ bulan }}
-            button.btn.btn-action.btn-link.btn-lg(v-if='notNow' @click='bulanIni')
-                i.icon.icon-time
-        button.btn.btn-action.btn-link.btn-lg(@click='gantiBulan("1")')
-            i.icon.icon-arrow-right
+        div
+            button.btn(v-if='after' @click='bulanIni') sekarang: {{ sekarang }} 
+            button.btn.btn-action.btn-link.btn-lg(@click='gantiBulan("1")')
+                i.icon.icon-arrow-right
     .calendar-container
         .calendar-header
             .calendar-date(v-for='ha of hari') {{ha}}
